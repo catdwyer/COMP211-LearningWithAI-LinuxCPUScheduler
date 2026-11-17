@@ -1,2 +1,10 @@
 # COMP211-LearningWithAI-LinuxCPUScheduler
 Exploring Operating System Scheduling and Linux's CPU Scheduler.
+
+My name is Catherine Dwyer, and I studied operating system scheduling, specifically the Linux CPU scheduler. I chose this topic because I have extensive experience with Windows but much less knowledge of Linux, so it seemed like the perfect way to close that gap.
+
+Every process on a computer needs CPU time, but computers have fewer cores than running processes. The scheduler is the part of the OS kernel that decides which processes run on which core, and for how long. It does this through context switching: pausing a process, saving its state, and loading another process’s state onto the CPU. Context switching creates the illusion for the user that all processes are running simultaneously.
+
+The Linux scheduler uses several strategies to prioritize certain processes while keeping things fair. For 16 years it used an algorithm called CFS (the Completely Fair Scheduler), which always picked the task with the smallest vruntime (virtual runtime: how much CPU a task has used, scaled by its weight). A small vruntime meant a task was far behind its ideal share of CPU. However, CFS only considered fairness across running tasks, not urgency. In 2023, it was replaced by EEVDF (Earliest Eligible Virtual Deadline First), which accounts for both. Under EEVDF, each task has a lag: the CPU time it is entitled to minus the CPU time it has actually received. A positive lag means the task is owed time, while a negative lag means it has taken more than its share and must wait.
+
+Linux also uses nice values to determine a task’s share of the CPU. A task’s share is its weight divided by the total weight of all runnable tasks on a given core. Nice values range from -20 (least nice, most CPU) to 19 (nicest, least CPU), with a default of 0. Nice values are unique because they don’t create a priority line. Instead, they change how large each task’s slice of CPU is, so no task is ever completely starved. In other words, Linux shares the CPU in proportion among tasks rather than ranking them in a simple queue.
