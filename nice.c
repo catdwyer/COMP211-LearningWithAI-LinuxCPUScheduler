@@ -1,3 +1,11 @@
+/*
+Instructions:
+
+1)Save as nice.c
+
+2)Compile: "gcc nice.c -o nice"
+3) Run: "./nice"
+*/
 
 #include <stdio.h>
 
