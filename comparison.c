@@ -4,7 +4,7 @@ Instructions:
 
 2)Compile: run "gcc comparison.c -o comparison"
 
-3. Run: "./comparison"
+3) Run: "./comparison"
 */
 
 #include <stdio.h>
